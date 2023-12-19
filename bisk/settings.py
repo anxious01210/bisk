@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-0hkp%pk4mb_dx639ra$@ox+=l&abs0o6b#jo9*sq8#!mjsfgt)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', ]
+
+# debug-toolbar
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    '0.0.0.0',
+    # ...
+]
 
 
 # Application definition
@@ -37,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # debug-toolbar
+    'debug_toolbar',    
 ]
 
 MIDDLEWARE = [
@@ -47,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # debug-toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'bisk.urls'
@@ -54,7 +66,7 @@ ROOT_URLCONF = 'bisk.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,8 +127,41 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Make sure that django.contrib.staticfiles is included in your INSTALLED_APPS.
+
 STATIC_URL = 'static/'
 
+# Your project will probably also have static assets that aren’t tied to a particular app. In addition to using a static/ directory inside your apps, 
+# you can define a list of directories (STATICFILES_DIRS) in your settings file where Django will also look for static files. For example:
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    # BASE_DIR / "debug_toolbar/static/",
+    # "/var/www/static/",
+]
+
+# Deployment¶
+# django.contrib.staticfiles provides a convenience management command for gathering static files in a single directory so you can serve them easily.
+#    Set the STATIC_ROOT setting to the directory from which you’d like to serve these files, for example:
+#    STATIC_ROOT = "/var/www/example.com/static/"
+#    Run the collectstatic management command:
+#    $ python manage.py collectstatic
+#    This will copy all files from your static folders into the STATIC_ROOT directory.
+STATIC_ROOT = BASE_DIR / 'statics'
+
+
+# MEDIA_URL¶
+# Default: '' (Empty string)
+# URL that handles the media served from MEDIA_ROOT, used for managing stored files. It must end in a slash if set to a non-empty value. 
+# You will need to configure these files to be served in both development and production environments.
+# If you want to use {{ MEDIA_URL }} in your templates, add 'django.template.context_processors.media' in the 'context_processors' option of TEMPLATES.
+MEDIA_URL = 'media/'
+
+# MEDIA_ROOT¶
+# Default: '' (Empty string)
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/var/www/example.com/media/"
+# MEDIA_ROOT = "~/Django/P01/biskv1"
+MEDIA_ROOT = BASE_DIR / 'media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

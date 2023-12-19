@@ -1,0 +1,16 @@
+{
+    // "python.envFile": "${workspaceFolder}/.env"
+    "python.defaultInterpreterPath": "~/Env/bisk/bin/python3",
+    // "python.envFile": "~/Env/bisk/bin/python3",
+    "python.envFile": "~/Env/bisk/bin/python3",
+    "python.activateEnv": true,
+    "terminal.integrated.shellArgs": ["-l", "source /usr/local/bin/virtualenvwrapper.sh"],
+}
+
+// {
+//     "python.defaultInterpreterPath": "/path/to/your/venv/bin/python",
+//     "python.envFile": "/Env/workon",
+//     "python.activateEnv": true,
+//     "terminal.integrated.shellArgs": ["-l", "source /path/to/your/virtualenvwrapper.sh"]
+//   }
+  
